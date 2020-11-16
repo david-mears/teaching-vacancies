@@ -53,5 +53,9 @@ module TeacherVacancyService
       api_key: ENV["NOTIFY_KEY"],
     }
     config.action_mailer.default_url_options = { protocol: "https" }
+
+    config.view_component.preview_paths << "#{Rails.root}/app/components"
+    config.view_component.preview_route = "/previews"
+    config.view_component.preview_controller = "PreviewController"
   end
 end
