@@ -497,7 +497,7 @@ GEM
     validate_url (1.0.13)
       activemodel (>= 3.0.0)
       public_suffix
-    view_component (2.22.1)
+    view_component (2.20.0)
       activesupport (>= 5.0.0, < 7.0)
     web-console (4.1.0)
       actionview (>= 6.0.0)
