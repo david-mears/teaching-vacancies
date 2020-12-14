@@ -24,4 +24,15 @@ class JobseekerMailer < Devise::Mailer
       subject: I18n.t("jobseeker_mailer.reset_password_instructions.subject"),
     )
   end
+
+  def unlock_instructions(record, token, _opts = {})
+    @jobseeker = record
+    @token = token
+
+    view_mail(
+      NOTIFY_JOBSEEKER_LOCKED_ACCOUNT_TEMPLATE,
+      to: @jobseeker.email,
+      subject: I18n.t("jobseeker_mailer.unlock_instructions.subject"),
+    )
+  end
 end

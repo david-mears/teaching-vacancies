@@ -1,0 +1,18 @@
+- content_for :page_title_prefix, t(".title")
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    %h1.govuk-heading-xl= t(".heading")
+
+    = form_for(resource, as: resource_name, url: unlock_path(resource_name)) do |f|
+
+      %p.govuk-body= t(".description")
+
+      = f.govuk_email_field :email, label: { size: "s" }, width: "two-thirds"
+
+      = f.govuk_submit t(".form_submit"), classes: "govuk-!-margin-bottom-0"
+
+    %hr.govuk-section-break.govuk-section-break--l.govuk-section-break--visible
+
+    %p.govuk-body-s= t(".having_trouble_html", mail_to: mail_to(t("help.email"), t(".report_it"), class: "govuk-link"))
+
