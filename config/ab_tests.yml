@@ -1,0 +1,5 @@
+shared:
+  my_first_test:
+    - red
+    - blue
+    - green
