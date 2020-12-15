@@ -6,17 +6,18 @@ require "digest/bubblebabble"
 # This includes additional information in the event that allows us to put the event into the
 # context of a user request. This event can only meaningfully be triggered in controllers.
 class RequestEvent < Event
-  def initialize(request, response, session, current_jobseeker, current_publisher_oid)
+  def initialize(request, response, session, ab_tests, current_jobseeker, current_publisher_oid)
     @request = request
     @response = response
     @session = session
+    @ab_tests = ab_tests
     @current_jobseeker = current_jobseeker
     @current_publisher_oid = current_publisher_oid
   end
 
 private
 
-  attr_reader :request, :response, :session, :current_jobseeker, :current_publisher_oid
+  attr_reader :request, :response, :session, :ab_tests, :current_jobseeker, :current_publisher_oid
 
   def base_data
     @base_data ||= super.merge(
@@ -27,6 +28,7 @@ private
       request_method: request.method,
       request_path: request.path,
       request_query: request.query_string,
+      request_ab_tests: mapped_ab_tests,
       response_content_type: response.content_type,
       response_status: response.status,
       user_anonymised_request_identifier: anonymise([user_agent, request.remote_ip].join),
@@ -34,6 +36,10 @@ private
       user_anonymised_jobseeker_id: anonymise(current_jobseeker&.id),
       user_anonymised_publisher_id: anonymise(current_publisher_oid),
     )
+  end
+
+  def mapped_ab_tests
+    ab_tests.map { |k,v| { test: k.to_s, variant: v.to_s } }
   end
 
   def user_agent

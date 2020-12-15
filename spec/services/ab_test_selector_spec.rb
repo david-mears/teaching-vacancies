@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ABTestSelector do
-  subject { described_class.new(tests, request: request) }
+  subject { described_class.new(tests, user_identifier: user_identifier) }
 
   let(:tests) do
     {
@@ -10,8 +10,7 @@ RSpec.describe ABTestSelector do
     }
   end
 
-  let(:ip) { "1.2.3.4" }
-  let(:request) { instance_double(ActionDispatch::Request, remote_ip: ip) }
+  let(:user_identifier) { 1000 }
 
   describe "#selected_variants" do
     it "determines variants based on IP address" do

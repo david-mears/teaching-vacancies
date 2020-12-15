@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   helper_method :cookies_preference_set?, :referred_from_jobs_path?, :utm_parameters
 
   include Publishers::AuthenticationConcerns
+  include AbTestable
   include Ip
 
   def check
@@ -115,7 +116,7 @@ private
   end
 
   def request_event
-    @request_event ||= RequestEvent.new(request, response, session, current_jobseeker, current_publisher_oid)
+    @request_event ||= RequestEvent.new(request, response, session, ab_tests.selected_variants, current_jobseeker, current_publisher_oid)
   end
 
   def trigger_page_visited_event

@@ -6,6 +6,7 @@ RSpec.describe RequestEvent do
       request,
       response,
       session,
+      ab_tests,
       jobseeker,
       current_publisher_oid,
     )
@@ -30,6 +31,7 @@ RSpec.describe RequestEvent do
     instance_double(ActionDispatch::Request::Session, id: "1337")
   end
 
+  let(:ab_tests) { { one: :green, two: :yellow } }
   let(:current_publisher_oid) { 1234 }
   let(:jobseeker) { instance_double(Jobseeker, id: 4321) }
 
@@ -45,6 +47,7 @@ RSpec.describe RequestEvent do
         request_method: "DELETE",
         request_path: "/foo/bar",
         request_query: "foo=bar&baz=bat",
+        request_ab_tests: [{ test: "one", variant: "green" }, { test: "two", variant: "yellow" }],
         response_content_type: "image/gif",
         response_status: 418,
         user_anonymised_request_identifier: "xeben-tocep-fadin-tezyg-rapic-begyn-hiraz-pedus-revuk-fisif-lypeh-tohim-lefyb-zolon-nilyk-sigud-coxux",

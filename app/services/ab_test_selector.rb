@@ -1,24 +1,26 @@
 class ABTestSelector
+  attr_reader :tests, :user_identifier
+
   ##
   # Create a new ABTestSelector
   #
   # @param [Hash{Symbol=>Hash{Symbol=>Integer}}] tests A hash of tests to variants with weights
-  # @param [ActionDispatch::Request] request the Rails request object
-  def initialize(tests, request:)
+  # @param [Integer] user_identifier A number to identify the user (e.g. numeric IP, user ID)
+  def initialize(tests, user_identifier:)
     @tests = tests
-    @ip_number = IPAddr.new(request.remote_ip).to_i
+    @user_identifier = user_identifier
   end
 
   ##
-  # Picks variants for all tests based on a weighted distribution over the request's IP address
+  # Picks variants for all tests based on a weighted distribution over the user identifier
   #
-  # This allows us to be reasonably consistent when targeting a specific user session while
-  # preserving user privacy and not requiring the use of cookies.
+  # This allows us to return the same variant for the same user identifier (as long as the
+  # test weights do not change).
   #
   # @return [Hash{Symbol=>Symbol}] A hash of all tests to their selected variant
   def selected_variants
-    @selected_variants ||= @tests.transform_values do |variants|
-      index = @ip_number % variants.values.sum
+    @selected_variants ||= tests.transform_values do |variants|
+      index = user_identifier % variants.values.sum
       candidates = variants.flat_map { |variant_name, weight| [variant_name] * weight }
 
       candidates[index].to_sym
