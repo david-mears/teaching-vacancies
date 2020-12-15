@@ -22,7 +22,6 @@ class Event
     )
     SendEventToDataWarehouseJob.perform_later(TABLE_NAME, data)
   rescue StandardError => e
-    raise e
     Rollbar.error(e)
   end
 
