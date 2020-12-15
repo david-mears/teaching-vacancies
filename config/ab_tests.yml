@@ -1,5 +1,6 @@
 shared:
-  my_first_test:
-    - red
-    - blue
-    - green
+  2020_12_job_alert_placement:
+    red: 1
+    blue: 1
+    green: 3
+`
