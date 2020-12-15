@@ -116,7 +116,14 @@ private
   end
 
   def request_event
-    @request_event ||= RequestEvent.new(request, response, session, ab_tests.selected_variants, current_jobseeker, current_publisher_oid)
+    @request_event ||= RequestEvent.new(
+      request,
+      response,
+      session,
+      ab_tests.selected_variants,
+      current_jobseeker,
+      current_publisher_oid,
+    )
   end
 
   def trigger_page_visited_event
