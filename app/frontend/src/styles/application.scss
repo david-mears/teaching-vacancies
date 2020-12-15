@@ -58,6 +58,8 @@ $govuk-image-url-function: frontend-image-url;
 @import 'application/publishers/share-url';
 @import 'application/publishers/statistics';
 
+@import 'publishers/vacancies_component/vacancies_component';
+
 @import 'shared/banner_link_component/banner_link_component';
 @import 'shared/dashboard_component/dashboard_component';
 @import 'shared/filters_component/filters_component';
