@@ -47,6 +47,7 @@ gem "sanitize"
 gem "sidekiq"
 gem "sidekiq-cron"
 gem "skylight"
+gem "slim-rails"
 gem "validate_url"
 gem "view_component"
 gem "webpacker"
@@ -75,6 +76,7 @@ group :development, :test do
   gem "rspec-sonarqube-formatter", require: false
   gem "rubocop-govuk"
   gem "rubocop-performance"
+  gem "slim_lint", require: false
 end
 
 group :test do
